@@ -76,6 +76,6 @@
   ],
   "include": [
     "src/app.ts",
-    "src/analytics.ts",
+    "src/classes.ts",
   ]
 }

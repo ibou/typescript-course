@@ -1,33 +1,29 @@
- 
 
-const hobbies = ['sport', 'lecture', 'natation', 'javelo'];
 
-const activitiesHobbies = ['kacking'];
-activitiesHobbies.push(...hobbies);
-// console.log('hello', activitiesHobbies);
-
-const person = {
-    name: 'Ibra',
-    age: 11
-};
-
-const copiedPerson = { ...person };
-
-const add = (...numbers: number[]) => {
-    return numbers.reduce((a, b) => {
-        return a + b;
-    }, 0);
-
+interface Named {
+    readonly name?: string;
+    outputName?: string;
+}
+interface Greetable extends Named {
+    greet(phrase: string): void
 }
 
-const addedNumbers = add(2, 3, 4);
-// console.log("added...", addedNumbers);
+class Person implements Greetable {
 
-const [hobby0, hobby1, ...tt] = hobbies;
+    name?: string;
+    age: 42;
 
-console.log(hobbies);
-console.log("hobby splitted: ", hobby0, hobby1, ...tt);
+    constructor(n?: string) {
+        this.name = n;
+    }
+    outputName?: string;
+    greet(phrase: string) {
+        console.log(phrase + " " + this.name);
+    }
 
+}
+let user: Greetable;
 
-const { name:fname } = person;
-console.log(fname, {...person});
+user = new Person("FEE");
+user.greet("Bonjour les amis: ");
+
