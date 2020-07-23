@@ -42,5 +42,80 @@ function extractAndConvert<T extends object, U extends keyof T>(obj: T, key: U) 
 
     return 'Value: ' + obj[key];
 }
+// console.log(extractAndConvert({name: "Ibrah", age:45}, "age"));
 
-console.log(extractAndConvert({name: "Ibrah", age:45}, "age"));
+class DataStorage<T extends number | string | boolean | object> {
+    private data: T[] = [];
+
+    addItem(item: T) {
+        this.data.push(item);
+    }
+
+    removeItem(item: T) {
+        if (this.data.indexOf(item) === -1 && typeof item !== 'object') {
+            return;
+        }
+
+        if (typeof item !== 'object') {
+            this.data.splice(this.data.indexOf(item), 1);
+            return;
+        }
+        this.data = this.data.filter(obj => (obj.name !== item.name) 
+    }
+
+    getItems() {
+        return [...this.data];
+    }
+
+}
+
+const textStorage = new DataStorage<string>();
+textStorage.addItem("Karl");
+textStorage.addItem("Marx");
+textStorage.addItem("Lentillea");
+// console.log(textStorage.getItems());
+textStorage.removeItem("Marx");
+console.log(textStorage.getItems());
+
+const numStorage = new DataStorage<number>();
+
+numStorage.addItem(2);
+numStorage.addItem(3);
+numStorage.addItem(4);
+numStorage.removeItem(3);
+console.log(numStorage.getItems());
+
+const objectStorage = new DataStorage<object>();
+
+objectStorage.addItem({ age: 34 });
+objectStorage.addItem({ name: "Kali" });
+objectStorage.addItem({ name: "Manu" });
+objectStorage.addItem({ name: "Lyli" });
+objectStorage.removeItem({ name: "Manu" });
+objectStorage.removeItem({ name: "Kali" });
+console.log(objectStorage.getItems());
+
+
+interface CourseGoal {
+    title: string;
+    description: string;
+    completeUntil: Date;
+}
+
+function createCourseGoal(
+    title: string,
+    description: string,
+    date: Date,
+): CourseGoal {
+    let courseGoal: Partial<CourseGoal> = {};
+    courseGoal.title = title;
+    courseGoal.description = description;
+    courseGoal.completeUntil = date;
+    return courseGoal as CourseGoal;
+}
+
+const names: Readonly<string[]> = ['Max', 'Laure'];
+names.push("Manuel");
+// names.pop();
+
+console.log(names);
