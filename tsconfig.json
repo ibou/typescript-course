@@ -73,9 +73,5 @@
   },
   "exclude": [
     "nodes_modules"
-  ],
-  "include": [
-    "src/app.ts",
-    "src/classes.ts",
-  ]
+  ] 
 }
