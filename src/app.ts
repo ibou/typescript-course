@@ -1,29 +1,35 @@
+// import 'reflect-metadata';
+import { plainToClass } from 'class-transformer';
+import { validate } from 'class-validator';
+
+import { Product } from './product.model';
+
+const products = [
+  { title: 'A Carpet', price: 29.99 },
+  { title: 'A Book', price: 10.99 }
+];
+
+const newProd = new Product('', -5.99);
+validate(newProd).then(errors => {
+  if (errors.length > 0) {
+    console.log('VALIDATION ERRORS!');
+    console.log(errors);
+  } else {
+    console.log(newProd.getInformation());
+  }
+});
+
+// const p1 = new Product('A Book', 12.99);
+
+const lp = products.map(prod => {
+  return new Product(prod.title, prod.price);
+});
+
+console.log("l,,...",lp);
 
 
-interface Named {
-    readonly name?: string;
-    outputName?: string;
+const loadedProducts = plainToClass(Product, products);
+
+for (const prod of loadedProducts) {
+  console.log(prod.getInformation());
 }
-interface Greetable extends Named {
-    greet(phrase: string): void
-}
-
-class Person implements Greetable {
-
-    name?: string;
-    age: 23;
-
-    constructor(n?: string) {
-        this.name = n;
-    }
-    outputName?: string;
-    greet(phrase: string) {
-        console.log(phrase + " " + this.name);
-    }
-
-}
-let user: Greetable;
-
-user = new Person("FEE");
-user.greet("Bonjour les amis: ");
-
